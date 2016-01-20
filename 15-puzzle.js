@@ -45,8 +45,23 @@ var board = {
 		}
 		selector = selector.substring(2);  // Strip off the leading ", ".
 		$(selector).wrapInner('<a href="#"></a>');
+	},
+
+	moveTile: function(){
+
+		$('td').on('click', 'a',
+			function swapTiles(){
+				var idNum = $(this).parent().attr('id').substring(5);
+				var tileValue = board.state[idNum];
+				board.state[idNum] = 0;
+				board.state[board.blankSlot] = tileValue;
+				board.blankSlot = tileValue;
+				board.renderTiles();
+		})
+
 	}
 };
 
 
 $(document).ready(board.renderTiles);
+$(document).ready(board.moveTile);
