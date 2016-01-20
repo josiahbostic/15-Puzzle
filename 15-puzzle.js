@@ -7,10 +7,10 @@ var board = {
 
 	// For each array element, the value is a subarray that lists the adjacent slots.
 	adjacent: [null, 
-					 [2,5], [1,3,6], [2,4,7], [3,8],
-			         [1,6,9], [2,5,7,10], [3,6,8,11], [4,7,12],
-			         [5,10,13], [6,9,11,14], [7,10,12,15], [8,11,16],
-			         [9,14], [10,13,15], [11,14,16], [12,15]
+					 [2,5],   	[1,3,6], 		[2,4,7], 		[3,8],
+			         [1,6,9], 	[2,5,7,10], 	[3,6,8,11], 	[4,7,12],
+			         [5,10,13], [6,9,11,14], 	[7,10,12,15], 	[8,11,16],
+			         [9,14], 	[10,13,15], 	[11,14,16], 	[12,15]
 			  ],
 
 	blankSlot: null,  // Will be set to a slot number from 1 to 16.
@@ -63,5 +63,4 @@ var board = {
 };
 
 
-$(document).ready(board.renderTiles);
-$(document).ready(board.moveTile);
+$(board.renderTiles), $(board.moveTile);
