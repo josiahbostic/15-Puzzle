@@ -4,6 +4,7 @@ var board = {
 	// For each array element, the value is the number tile currently in that slot.
 	// The value 0 represents the blank slot.
 	state: [ null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 ],
+	blankSlot: 16,  // Index of where the blank is, ie. the 0 value.
 
 	// For each array element, the value is a subarray that lists the adjacent slots.
 	adjacent: [null, 
@@ -13,7 +14,6 @@ var board = {
 			         [9,14], 	[10,13,15], 	[11,14,16], 	[12,15]
 			  ],
 
-	blankSlot: null,  // Will be set to a slot number from 1 to 16.
 
 	renderTiles: function () {
 		$('td').each ( 
@@ -24,7 +24,6 @@ var board = {
 				if (tile === 0) {  // It's the blank slot.
 					$(this).addClass('blank');
 					$(this).text('');
-					board.blankSlot = idNum;
 				}
 				else {
 					$(this).removeClass('blank');
@@ -47,7 +46,7 @@ var board = {
 		$(selector).wrapInner('<a href="#"></a>');
 	},
 
-	moveTile: function(){
+	setSlotHandler: function(){
 
 		$('td').on('click', 'a',
 			function swapTiles(){
@@ -55,7 +54,8 @@ var board = {
 				var tileValue = board.state[idNum];
 				board.state[idNum] = 0;
 				board.state[board.blankSlot] = tileValue;
-				board.blankSlot = tileValue;
+				board.blankSlot = idNum;
+
 				board.renderTiles();
 		})
 
@@ -63,4 +63,5 @@ var board = {
 };
 
 
-$(board.renderTiles), $(board.moveTile);
+$(board.renderTiles);
+$(board.setSlotHandler);
