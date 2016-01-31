@@ -1,0 +1,5 @@
+DirectoryIndex 15-puzzle.html
+
+#Rewrite rules
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^\.]+)$ $1.html [NC,L]
