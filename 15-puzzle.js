@@ -4,6 +4,7 @@ var board = {
 	// For each array element, the value is the number tile currently in that slot.
 	// The value 0 represents the blank slot.
 	state: [ null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 ],
+	completedState: [ null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 ],
 	blankSlot: 16,  // Index of where the blank is, ie. the 0 value.
 
 	// For each array element, the value is a subarray that lists the adjacent slots.
@@ -46,19 +47,40 @@ var board = {
 		$(selector).wrapInner('<a href="#"></a>');
 	},
 
-	setSlotHandler: function(){
+	makeMove: function(tile){
 
-		$('td').on('click', 'a',
-			function swapTiles(){
-				var idNum = $(this).parent().attr('id').substring(5);
+				var idNum = $(tile).parent().attr('id').substring(5);
 				var tileValue = board.state[idNum];
 				board.state[idNum] = 0;
 				board.state[board.blankSlot] = tileValue;
 				board.blankSlot = idNum;
 
 				board.renderTiles();
-		})
+	},
 
+	setSlotHandler: function(){
+
+		$('td').on('click', 'a', 
+			function(){
+				board.makeMove(this); 
+				if (board.isGameFinished()) board.userWon();
+			}
+		);
+	},
+
+	isGameFinished: function(){
+
+		for (var i = 0; i < board.state.length; i++){
+
+			if(board.state[i] != board.completedState[i]) return false;
+		}
+
+		return true;
+	},
+
+	userWon: function(){
+
+		alert('You win!');
 	}
 };
 
