@@ -81,9 +81,29 @@ var board = {
 	userWon: function(){
 
 		alert('You win!');
+	},
+
+	setShuffleHandler: function () {
+
+		$('#shuffle-board').on('click',
+
+			function shuffleTheBoard () {
+
+				// Initialize the shuffled board to the completed state,
+				// then make random moves to do the shuffling.
+				var shuffledState = board.completedState.slice(0);
+				var movableTiles = board.adjacent[board.blankSlot];
+				var whichTile = Math.floor(Math.random() * movableTiles.length);
+				var tileIdNum = 'slot-' + movableTiles[whichTile];
+
+				alert(tileIdNum);
+			}
+		)
 	}
 };
 
 
+// Execute the following when DOM is ready, ie. same as $(document).ready()
 $(board.renderTiles);
 $(board.setSlotHandler);
+$(board.setShuffleHandler);
