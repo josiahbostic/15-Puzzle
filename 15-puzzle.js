@@ -61,9 +61,9 @@ var board = {
   setSlotHandler: function(){
 
     $('td').on('click', 'a',
-      function(){
+      function(event, checkFinished = true){
         board.makeMove(this);
-        if (board.isGameFinished()) board.userWon();
+        if (checkFinished && board.isGameFinished()) board.userWon();
       }
     );
   },
@@ -89,14 +89,20 @@ var board = {
 
       function shuffleTheBoard () {
 
-        // Initialize the shuffled board to the completed state,
-        // then make random moves to do the shuffling.
-        var shuffledState = board.completedState.slice(0);
-        var movableTiles = board.adjacent[board.blankSlot];
-        var whichTile = Math.floor(Math.random() * movableTiles.length);
-        var tileIdNum = 'slot-' + movableTiles[whichTile];
+        // Make a bunch of random moves to do the shuffling
+        // by simulating user clicks on the tiles.
 
-        alert(tileIdNum);
+        // 100 moves seem to be an adequate number for scrambling
+        // the tiles from whatever state the board is in.
+
+        for (var i = 0; i < 100; i++) {
+          var movableTiles = board.adjacent[board.blankSlot];
+          var whichTile = Math.floor(Math.random() * movableTiles.length);
+          var tileIdNum = 'slot-' + movableTiles[whichTile];
+
+          var selector = '#' + tileIdNum + ' a';
+          $(selector).trigger('click', [ false ]);
+        }
       }
     )
   }
