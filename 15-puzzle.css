@@ -3,21 +3,19 @@ body{
 }
 #puzzle-table{
 	border: 10px solid black;
-	width: 400px;
-	height: 400px;
+	width: 300px;
+	height: 300px;
 	margin-left: auto;
 	margin-right: auto;
-	font-size: 300%;
+	font-size: 250%;
 }
 .blank {
 	background-color: black;
 }
 #shuffle-board{
-	margin-top: 5%;
-	margin-left: 40%;
-	margin-right: 40%;
-	width: 20%;
-
+	margin-top: 15px;
+	width: 200px;
+	font-size: 1.3em;
 }
 td {
 	height: 25%;
