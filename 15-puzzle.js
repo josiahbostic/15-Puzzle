@@ -4,8 +4,9 @@ var board = {
   // For each array element, the value is the number tile currently in that slot.
   // The value 0 represents the blank slot.
   state: [ null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 ],
-  completedState: [ null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 ],
   blankSlot: 16,  // Index of where the blank is, ie. the 0 value.
+
+  completedState: [ null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 ],
 
   // For each array element, the value is a subarray that lists the adjacent slots.
   adjacent: [null,
@@ -61,9 +62,11 @@ var board = {
   setSlotHandler: function(){
 
     $('td').on('click', 'a',
-      function(event, checkFinished = true){
+      function(event, shuffling){
         board.makeMove(this);
-        if (checkFinished && board.isGameFinished()) board.userWon();
+        // While shuffling, don't check for whether the game
+        // is finished. Otherwise, you get spurious "you win" messages.
+        if (!shuffling && board.isGameFinished()) board.userWon();
       }
     );
   },
@@ -101,7 +104,7 @@ var board = {
           var tileIdNum = 'slot-' + movableTiles[whichTile];
 
           var selector = '#' + tileIdNum + ' a';
-          $(selector).trigger('click', [ false ]);
+          $(selector).trigger('click', [ true ]);
         }
       }
     )
